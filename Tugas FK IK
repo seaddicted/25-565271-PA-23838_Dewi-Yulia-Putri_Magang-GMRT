@@ -1,0 +1,32 @@
+import math
+
+print("1. Forward Kinematics")
+print("2. Invers KInematics")
+pilih = input("Pilih mode: ")
+
+if pilih == "1":
+    l1 = float(input("Masukkan panjang femur: "))
+    l2 = float(input("Masukkan panjang tibia: "))
+    teta1 = float(input("Masukkan sudut servo 1: "))
+    teta2 = float(input("Masukkan sudut servo 2: "))
+
+    t1 = math.radians(teta1)
+    t2 = math.radians(teta2)
+
+    x = l1 * math.cos(t1) + l2 * math.cos(t1 + t2)
+    y = l1 * math.sin(t1) + l2 * math.sin(t1 + t2)
+
+    print(f"Koordinat ujung kaki robot: ")
+    print(f"x = {x: .2f}")
+    print(f"y = {y: .2f}")
+elif pilih == "2":
+    l1 = float(input("Masukkan panjang femur: "))
+    l2 = float(input("Masukkan panjang tibia: "))
+    x = float(input("Masukkan posisi x: "))
+    y = float(input("Masukkan posisi y: "))
+
+    t2 = math.acos((x**2 + y**2 - l1**2 - l2**2)/(2*l1*l2))
+    t1 = math.atan2(y, x) - math.atan2(l2*math.sin(t2), l1 + l2*math.cos(t2))
+
+    print(f"t1={math.degrees(t1):.2f}°, t2={math.degrees(t2):.2f}°")
+
